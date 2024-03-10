@@ -1,5 +1,6 @@
 import React from "react";
-import Form from "react-jsonschema-form";
+import Form from "@rjsf/core";
+import validator from '@rjsf/validator-ajv8';
 import { TypeaheadField } from "./react-jsonschema-form-extras/TypeaheadField";
 import { ImageWidget } from "./imagewidget";
 import { PartField } from "./partfield";
@@ -41,7 +42,7 @@ export const EditorForm = React.forwardRef((props, ref) => {
       ref={ref}
       showErrorList={false}
       {...props}
-      liveValidate
+      validator={validator}
     />
   );
 });

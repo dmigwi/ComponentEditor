@@ -54,5 +54,5 @@ Header.displayName = "Header";
 }*/
 
 Header.defaultProps = {
-  activeBlock: null
+  // activeBlock: null
 };

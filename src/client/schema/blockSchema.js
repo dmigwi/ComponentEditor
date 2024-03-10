@@ -15,6 +15,7 @@ export function blockuiSchema(blocksList, controllersList, supportBlocksList) {
     category: {
       "ui:field": "typeahead",
       typeahead: {
+        id: "block-schema-categories",
         options: blockSchema.default.properties.category.items.enum,
         minLength: 0,
         multiple: true
@@ -51,12 +52,13 @@ export function blockuiSchema(blocksList, controllersList, supportBlocksList) {
     },
     altComp: {
       cost: {
-        classNames: "two-coloumn-field"
+        "ui:classNames": "two-coloumn-field"
       },
       block: {
         "ui:field": "typeahead",
-        classNames: "two-coloumn-field",
+        "ui:classNames": "two-coloumn-field",
         typeahead: {
+          id: "block-list",
           options: blocksList,
           minLength: 0
         }
@@ -80,10 +82,10 @@ export function blockuiSchema(blocksList, controllersList, supportBlocksList) {
           ]
         },
         name: {
-          classNames: "two-coloumn-field"
+          "ui:classNames": "two-coloumn-field"
         },
         cost: {
-          classNames: "two-coloumn-field"
+          "ui:classNames": "two-coloumn-field"
         },
         supportedControllers: supportedControllersUISchema(controllersList),
         parts: {
@@ -92,12 +94,12 @@ export function blockuiSchema(blocksList, controllersList, supportBlocksList) {
           },
           items: {
             name: {
-              classNames: "two-coloumn-field",
+              "ui:classNames": "two-coloumn-field",
               "ui:disabled": "true"
             },
             part: {
               "ui:field": "partfield",
-              classNames: "two-coloumn-field"
+              "ui:classNames": "two-coloumn-field"
             }
           }
         },
@@ -112,11 +114,11 @@ export function blockuiSchema(blocksList, controllersList, supportBlocksList) {
         wires: {
           items: {
             from: {
-              classNames: "two-coloumn-field",
+              "ui:classNames": "two-coloumn-field",
               "ui:widget": "wiredropdown"
             },
             to: {
-              classNames: "two-coloumn-field",
+              "ui:classNames": "two-coloumn-field",
               "ui:widget": "wiredropdown"
             }
           },
@@ -129,7 +131,7 @@ export function blockuiSchema(blocksList, controllersList, supportBlocksList) {
             orderable: false
           },
           items: {
-            classNames: "Card",
+            "ui:classNames": "Card",
             interface: {
               requires: {
                 "ui:options": {
@@ -137,14 +139,14 @@ export function blockuiSchema(blocksList, controllersList, supportBlocksList) {
                 },
                 items: {
                   cost: {
-                    classNames: "three-coloumn-field"
+                    "ui:classNames": "three-coloumn-field"
                   },
                   spec: {
-                    classNames: "three-coloumn-field",
+                    "ui:classNames": "three-coloumn-field",
                     "ui:emptyValue": ""
                   },
                   voltage: {
-                    classNames: "three-coloumn-field"
+                    "ui:classNames": "three-coloumn-field"
                   }
                 }
               },
@@ -154,11 +156,11 @@ export function blockuiSchema(blocksList, controllersList, supportBlocksList) {
                 },
                 items: {
                   spec: {
-                    classNames: "two-coloumn-field",
+                    "ui:classNames": "two-coloumn-field",
                     "ui:emptyValue": ""
                   },
                   voltage: {
-                    classNames: "two-coloumn-field"
+                    "ui:classNames": "two-coloumn-field"
                   }
                 }
               },
@@ -174,15 +176,16 @@ export function blockuiSchema(blocksList, controllersList, supportBlocksList) {
           },
           items: {
             cost: {
-              classNames: "two-coloumn-field"
+              "ui:classNames": "two-coloumn-field"
             },
             blocks: {
               "ui:field": "typeahead",
               "ui:options": {
                 forceLabelDisplay: true
               },
-              classNames: "two-coloumn-field",
+              "ui:classNames": "two-coloumn-field",
               typeahead: {
+                id: "supported-block-list",
                 options: supportBlocksList,
                 minLength: 0,
                 multiple: true

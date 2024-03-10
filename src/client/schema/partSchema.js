@@ -28,6 +28,7 @@ export function partuiSchema(partsList) {
     category: {
       "ui:field": "typeahead",
       typeahead: {
+        id: "parts-schema-categories",
         options: partSchema.default.properties.category.items.enum,
         minLength: 0,
         multiple: true
@@ -51,6 +52,7 @@ export function partuiSchema(partsList) {
         forceLabelDisplay: true
       },
       typeahead: {
+        id: "parts-list",
         options: partsList,
         minLength: 0,
         multiple: true

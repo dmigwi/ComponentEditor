@@ -32,7 +32,7 @@ export class PartField extends React.Component {
   }
 
   onShowModal() {
-    analytics.track("Part Opened", { name: this.state.objName });
+    // analytics.track("Part Opened", { name: this.state.objName });
     //prevent the reload only once
     if (this.preventNextReload) this.preventNextReload = false;
     else
@@ -43,12 +43,12 @@ export class PartField extends React.Component {
           return;
         }
         this.setState({ objData: newPartData });
-        ReactTooltip.rebuild();
+        //ReactTooltip.rebuild();
       });
   }
 
   onSave() {
-    analytics.track("Part Saved", { name: this.state.objName });
+    // analytics.track("Part Saved", { name: this.state.objName });
     update_a_part(this.state.objName, this.lastData).then(res => {
       if (!(res && res.ok))
         toast.error(
@@ -60,7 +60,7 @@ export class PartField extends React.Component {
 
   onSelectNew(newPartName) {
     var newData = { name: newPartName, bom: [{ name: "octopart" }] };
-    analytics.track("Part Created", { name: newPartName });
+    // analytics.track("Part Created", { name: newPartName });
 
     this.preventNextReload = true; // don't reload file on modalShow, because it's not ready
     update_a_part(newPartName, newData).then(res => {
@@ -111,12 +111,12 @@ export class PartField extends React.Component {
         });
     }
     this.lastData = formData;
-    ReactTooltip.rebuild();
+    //ReactTooltip.rebuild();
   }
 
   onDelete() {
     if (confirm("Really delete part?")) {
-      analytics.track("Part Deleted", { name: this.state.objName });
+      // analytics.track("Part Deleted", { name: this.state.objName });
       delete_a_part(this.state.objName).then(res => {
         if (!(res && res.ok)) toast.error("Delete part failed");
         else {

@@ -24,7 +24,7 @@ class Home extends React.Component {
   }
 
   onBlockSelected(block) {
-    console.log(">>>>> Block selected >>>> ", block);
+    // console.log(">>>>> Block selected >>>> ", block);
     const { openBlock } = this.props;
     openBlock(block);
   }

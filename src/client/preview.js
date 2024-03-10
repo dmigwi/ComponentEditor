@@ -27,7 +27,7 @@ export class Preview extends React.Component {
     fetch("/api/preview")
       .then(res => {
         res.json().then(data => {
-          analytics.identify(data.userid);
+          // analytics.identify(data.userid);
           this.setState({ previewURL: data.endPoint });
           previewURL = data.endPoint;
         });
@@ -50,7 +50,7 @@ export class Preview extends React.Component {
       const toastId = toast.info("Upload in progress...", {
         autoClose: false
       });
-      analytics.track("Preview Clicked");
+      // analytics.track("Preview Clicked");
       invoke_upload().then(res => {
         if (res && res.ok) {
           toast.update(toastId, {

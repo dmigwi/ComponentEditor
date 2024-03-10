@@ -18,9 +18,9 @@ export function ImageWidget(props) {
   return (
     <InputGroup>
       {props.options && props.options.svgcreator && (
-        <InputGroup.Prepend>
+        <InputGroup.Text>
           <SVGCreator />
-        </InputGroup.Prepend>
+        </InputGroup.Text>
       )}
 
       <FormControl
@@ -32,7 +32,7 @@ export function ImageWidget(props) {
         onChange={event => props.onChange(event.target.value)}
       />
 
-      <InputGroup.Append>
+      <InputGroup.Text>
         <Button
           variant="outline-secondary"
           disabled={!props.value}
@@ -56,7 +56,7 @@ export function ImageWidget(props) {
         >
           Upload...
         </Button>
-      </InputGroup.Append>
+      </InputGroup.Text>
     </InputGroup>
   );
 }

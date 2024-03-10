@@ -46,7 +46,7 @@ export class CoderField extends React.Component {
   }
 
   onShowModal() {
-    analytics.track("Coder Opened", { name: this.state.objName });
+    // analytics.track("Coder Opened", { name: this.state.objName });
     //prevent the reload only once
     if (this.preventNextReload) this.preventNextReload = false;
     else
@@ -57,12 +57,12 @@ export class CoderField extends React.Component {
           return;
         }
         this.setState({ objData: newCoderData });
-        ReactTooltip.rebuild();
+        //ReactTooltip.rebuild();
       });
   }
 
   onSave() {
-    analytics.track("Coder Saved", { name: this.state.objName });
+    // analytics.track("Coder Saved", { name: this.state.objName });
     update_a_coder(this.state.objName, this.lastData).then(res => {
       if (!(res && res.ok))
         toast.error(
@@ -101,7 +101,7 @@ export class CoderField extends React.Component {
 
   onSelectNew(newCoderName) {
     var newData = createNewCoder(newCoderName);
-    analytics.track("Coder Created", { name: newCoderName });
+    // analytics.track("Coder Created", { name: newCoderName });
 
     this.preventNextReload = true; // don't reload file on modalShow, because it's not ready
     update_a_coder(newCoderName, newData).then(res => {
@@ -140,7 +140,7 @@ export class CoderField extends React.Component {
 
   onDelete() {
     if (confirm("Really delete coder?")) {
-      analytics.track("Coder Deleted", { name: this.state.objName });
+      // analytics.track("Coder Deleted", { name: this.state.objName });
       delete_a_coder(this.state.objName).then(res => {
         if (!(res && res.ok)) toast.error("Delete coder failed");
         else {

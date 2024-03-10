@@ -104,8 +104,8 @@ export class BlocksList extends React.Component {
         Dialog.OKAction(dialog => {
           const newBlockName = dialog.value.replace(" ", "_");
 
-          analytics.track("Block Created", { name: newBlockName });
-          analytics.track("Block Opened", { name: newBlockName });
+          // analytics.track("Block Created", { name: newBlockName });
+          // analytics.track("Block Opened", { name: newBlockName });
 
           update_a_block(newBlockName, createNewBlockData(newBlockName))
             .then(res => {
@@ -171,7 +171,7 @@ export class BlocksList extends React.Component {
             this.setState({ input });
           }}
           onChange={selection => {
-            analytics.track("Block Opened", { name: selection[0].id });
+            // analytics.track("Block Opened", { name: selection[0].id });
             this.props.onBlockSelected(selection[0].id);
           }}
           bsSize={"small"}

@@ -4,7 +4,7 @@ import {
   getDefaultRegistry,
   getUiOptions,
   isFilesArray,
-} from "react-jsonschema-form/lib/utils";
+} from "@rjsf/utils";
 
 const REQUIRED_FIELD_SYMBOL = "*";
 
@@ -33,11 +33,13 @@ export function DefaultLabel({
   formContext,
 }) {
   const uiOptions = getUiOptions(uiSchema);
+  const { schemaUtils } = registry;
+
   let { label: displayLabel = true, forceLabelDisplay } = uiOptions;
   if (schema.type === "array") {
     displayLabel =
-      isMultiSelect(schema, definitions) ||
-      isFilesArray(schema, uiSchema, definitions);
+      schemaUtils.isMultiSelect(schema) ||
+      schemaUtils.isFilesArray(schema, uiSchema);
   }
   if (schema.type === "object") {
     displayLabel = false;

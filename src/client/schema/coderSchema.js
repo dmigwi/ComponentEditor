@@ -20,6 +20,7 @@ export function coderuiSchema(controllersList) {
     license: {
       "ui:field": "typeahead",
       typeahead: {
+        id: "color-schema",
         options: ["Apache", "BSD2", "BSD3", "GPL3", "LGPL", "MIT"],
         placeholder: "Apache, BSD2, BSD3, GPL3, LGPL, MIT...",
         allowNew: true,

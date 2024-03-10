@@ -6,7 +6,7 @@ import {
   orderProperties,
   retrieveSchema,
   getDefaultRegistry
-} from "react-jsonschema-form/lib/utils";
+} from "@rjsf/utils";
 
 function TabbedObjectFieldTemplate(props) {
   const { uiSchema } = props;
@@ -207,9 +207,10 @@ export class TabbedObjectField extends React.Component {
       onFocus,
       registry = getDefaultRegistry()
     } = this.props;
-    const { definitions, fields, formContext } = registry;
+
+    const { schemaUtils, fields, formContext } = registry;
     const { SchemaField, TitleField, DescriptionField } = fields;
-    const schema = retrieveSchema(this.props.schema, definitions, formData);
+    const schema = schemaUtils.retrieveSchema(this.props.schema, formData);
     const title = schema.title === undefined ? name : schema.title;
     const description = uiSchema["ui:description"] || schema.description;
     let orderedProperties;
@@ -291,7 +292,7 @@ if (process.env.NODE_ENV !== "production") {
         PropTypes.oneOfType([PropTypes.func, PropTypes.object])
       ).isRequired,
       fields: PropTypes.objectOf(PropTypes.func).isRequired,
-      definitions: PropTypes.object.isRequired,
+      // definitions: PropTypes.object.isRequired,
       formContext: PropTypes.object.isRequired
     })
   };

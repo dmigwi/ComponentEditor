@@ -7,7 +7,7 @@ import {
   retrieveSchema,
   toIdSchema,
   getDefaultRegistry
-} from "react-jsonschema-form/lib/utils";
+} from "@rjsf/utils";
 import PropTypes from "prop-types";
 import { toast } from "react-toastify";
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
@@ -287,16 +287,16 @@ export class FilesArrayField extends React.Component {
     } = this.props;
 
     const title = schema.title === undefined ? name : schema.title;
-    const { ArrayFieldTemplate, definitions, fields, formContext } = registry;
+    const { schemaUtils, definitions, fields, formContext } = registry;
     const { TitleField, DescriptionField } = fields;
-    const itemsSchema = retrieveSchema(schema.items, definitions);
+    const itemsSchema = schemaUtils.retrieveSchema(schema.items, definitions);
     const arrayProps = {
       canAdd: this.canAddItem(formData),
       items: formData.map((item, index) => {
-        const itemSchema = retrieveSchema(schema.items, definitions, item);
+        const itemSchema = schemaUtils.retrieveSchema(schema.items, definitions, item);
         const itemErrorSchema = errorSchema ? errorSchema[index] : undefined;
         const itemIdPrefix = idSchema.$id + "_" + index;
-        const itemIdSchema = toIdSchema(
+        const itemIdSchema = schemaUtils.toIdSchema(
           itemSchema,
           itemIdPrefix,
           definitions,

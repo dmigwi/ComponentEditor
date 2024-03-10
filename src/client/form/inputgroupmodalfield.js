@@ -40,14 +40,13 @@ export class InputGroupModalField extends React.Component {
   }
 
   render() {
-    console.log(" >>> InputGroupModalField <<< ", this.props);
     return (
       <React.Fragment>
         <FormGroup>
           <DefaultLabel {...this.props.labelProps} />
           <InputGroup>
             <Typeahead
-              id={this.props.id}
+              id="input-group-modal"
               options={this.props.options}
               placeholder={this.props.placeholder}
               defaultSelected={this.props.defaultSelected}
@@ -77,7 +76,7 @@ export class InputGroupModalField extends React.Component {
                 }
               }}
             />
-            <InputGroup.Prepend>
+            <InputGroup.Text>
               <Button
                 variant="outline-secondary"
                 onClick={this.showModal}
@@ -85,7 +84,7 @@ export class InputGroupModalField extends React.Component {
               >
                 Edit
               </Button>
-            </InputGroup.Prepend>
+            </InputGroup.Text>
           </InputGroup>
         </FormGroup>
 

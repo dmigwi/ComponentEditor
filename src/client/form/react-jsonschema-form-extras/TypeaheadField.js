@@ -13,7 +13,7 @@ const DEFAULT_OPTIONS = {
   labelKey: "name",
   minLength: 3,
   placeholder: "Search...",
-  ref: "typeahead",
+  ref: React.createRef(),
 };
 
 function optionToString(fields, separator) {
@@ -150,6 +150,7 @@ class BaseTypeaheadField extends Component {
       this.props.onChange(schemaEvents);
       if (cleanAfterSelection) {
         setTimeout(() => {
+          console.log(">>>>> BASEtypeAhead <<<<<< ", this.refs);
           if (this.refs.typeahead) {
             this.refs.typeahead.getInstance().clear();
           }
@@ -184,10 +185,12 @@ export class TypeaheadField extends BaseTypeaheadField {
       selected,
     });
 
+    // console.log(" <<<<**** DATATAA _____ ", typeConf, " ________ id ", typeConf.id);
+
     return (
       <div id={$id}>
         <DefaultLabel {...this.props} />
-        <Typeahead {...typeConf}  id="component-" />
+        <Typeahead {...typeConf} />
       </div>
     );
   }
@@ -198,6 +201,7 @@ TypeaheadField.propTypes = {
   uiSchema: PropTypes.shape({
     focusOnMount: PropTypes.bool,
     typeahead: PropTypes.shape({
+      id: PropTypes.string.isRequired,
       options: PropTypes.array.isRequired,
       mapping: PropTypes.oneOfType([
         PropTypes.func,

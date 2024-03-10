@@ -2,10 +2,10 @@ export const svguiSchema = {
   pins: {
     items: {
       name: {
-        classNames: "two-coloumn-field"
+        "ui:classNames": "two-coloumn-field"
       },
       type: {
-        classNames: "two-coloumn-field"
+        "ui:classNames": "two-coloumn-field"
       }
     }
   }
@@ -33,8 +33,14 @@ export const svgSchema = {
       title: "Color",
       type: "string",
       default: "Red",
-      enum: ["#CF2F27", "#45925A", "#0B5597", "#000000", "#338085"],
-      enumNames: ["Red", "Green", "Blue", "Black", "Ocean"]
+      oneOf: [
+        { const: "#CF2F27", title: "Red" },
+        { const: "#45925A", title: "Green" },
+        { const: "#0B5597", title: "Blue" },
+        { const: "#000000", title: "Black" },
+        { const: "#338085", title: "Ocean" },
+        { const: "#338F85", title: "Purple" }
+      ]
     },
     pinTypes: {
       title: "Pin Type",

@@ -47,14 +47,14 @@ export class Block extends React.Component {
   }
 
   componentDidMount() {
-    if (!this.props.block) {
+    if (!this.props.activeBlock) {
       this.setState({ formSrcData: {} });
       return;
     }
 
-    read_a_block(this.props.block).then(blockData => {
+    read_a_block(this.props.activeBlock).then(blockData => {
       this.setState({ formSrcData: blockData });
-      ReactTooltip.rebuild();
+      // ReactTooltip.rebuild();
       this.updateConnectors();
     });
   }
@@ -177,13 +177,13 @@ export class Block extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (!this.props.block) {
+    if (!this.props.activeBlock && Object.keys(this.state.formSrcData).length !== 0 ) {
       this.setState({ formSrcData: {} });
       return;
     }
 
-    if (prevProps.block !== this.props.block) {
-      read_a_block(this.props.block).then(blockData => {
+    if (prevProps.block !== this.props.activeBlock) {
+      read_a_block(this.props.activeBlock).then(blockData => {
         this.setState({ formSrcData: blockData });
       });
     }
@@ -194,26 +194,26 @@ export class Block extends React.Component {
       console.log("unmodified, ignoring save");
       return;
     }
-    analytics.track("Block Saved", { name: this.props.block });
-    update_a_block(this.props.block, this.currentData).then(res => {
+    // analytics.track("Block Saved", { name: this.props.activeBlock });
+    update_a_block(this.props.activeBlock, this.currentData).then(res => {
       if (!(res && res.ok))
         toast.error(
           "Update block failed:" + ((res && res.statusText) || "can't connect")
         );
-      else toast.success("Saved " + this.props.block, { autoClose: 2000 });
+      else toast.success("Saved " + this.props.activeBlock, { autoClose: 2000 });
       this.modified = false;
     });
   }
 
   delete() {
     if (confirm("Really delete block?")) {
-      analytics.track("Block Deleted", {
-        name: this.props.block
-      });
-      delete_a_block(this.props.block).then(res => {
+      // analytics.track("Block Deleted", {
+      //   name: this.props.activeBlock
+      // });
+      delete_a_block(this.props.activeBlock).then(res => {
         if (!(res && res.ok)) toast.error("Delete block failed");
         else {
-          toast.success("Deleted " + this.props.block, { autoClose: 2000 });
+          toast.success("Deleted " + this.props.activeBlock, { autoClose: 2000 });
           this.setState({ block: null });
           redirect("/");
         }
@@ -268,7 +268,7 @@ export class Block extends React.Component {
       );
     }
 
-    ReactTooltip.rebuild();
+    //ReactTooltip.rebuild();
     this.modified = true;
     this.currentData = formData;
   }
@@ -291,7 +291,7 @@ export class Block extends React.Component {
 
     return (
       <React.Fragment>
-        <div className="container" style={{ paddingBottom: "50px" }}>
+        <div className="container">
           <EditorForm
             schema={blockSchema.default}
             uiSchema={blockuiSchema(
@@ -319,7 +319,7 @@ export class Block extends React.Component {
               {this.state.disabled && <div className="lds-dual-ring" />}
               <Button
                 onClick={event => {
-                  gitpod_open("Blocks/" + this.props.block + ".json");
+                  gitpod_open("Blocks/" + this.props.activeBlock + ".json");
                 }}
               >
                 Open file in code editor
