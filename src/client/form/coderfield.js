@@ -14,7 +14,7 @@ import {
 import AceEditor from "react-ace";
 import "brace/mode/c_cpp";
 import "brace/theme/monokai";
-import ReactTooltip from "react-tooltip";
+import { Tooltip as ReactTooltip } from "react-tooltip";
 import { faSync } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 

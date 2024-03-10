@@ -6,7 +6,7 @@ import { update_a_block, update_a_coder } from "./controller.js";
 import { createNewCoder } from "./form/coderfield.js";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Dialog from "react-bootstrap-dialog";
+import Dialog from "react-bootstrap-dialog-v2";
 import Joyride from "react-joyride";
 
 var firstTimeHelp = true;
@@ -163,6 +163,7 @@ export class BlocksList extends React.Component {
         <br />
         <br />
         <Typeahead
+          id="circuit-component"
           options={blocksIdsLabels}
           selectHintOnEnter={true}
           emptyLabel={false}

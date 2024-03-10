@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, redirect } from "react-router-dom";
 import { isEqual } from "underscore";
 import { toast } from "react-toastify";
 import { Button } from "react-bootstrap";
@@ -13,7 +13,7 @@ import {
   read_a_svgdata,
   delete_a_block
 } from "./controller.js";
-import ReactTooltip from "react-tooltip";
+import { Tooltip as ReactTooltip } from "react-tooltip";
 
 import * as blockSchema from "../../circuito-schema/block.json";
 
@@ -215,7 +215,7 @@ export class Block extends React.Component {
         else {
           toast.success("Deleted " + this.props.block, { autoClose: 2000 });
           this.setState({ block: null });
-          this.props.history.push("/");
+          redirect("/");
         }
       });
     }

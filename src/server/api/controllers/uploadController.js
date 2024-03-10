@@ -1,6 +1,6 @@
 "use strict";
 
-const rp = require("request-promise");
+const axios = require('axios');
 const fs = require("fs");
 const path = require("path");
 const urlJoin = require("proper-url-join");
@@ -161,12 +161,12 @@ exports.upload = function(req, res) {
     event: "Data Uploaded"
   });
 
-  rp({
-    url: endPoint,
-    method: "post",
-    body: files,
-    json: true
-  })
+  axios({
+      method: 'post',
+      url: endPoint,
+      data: files,
+      responseType: 'json'
+    })
     .then(body => {
       console.log("Upload OK");
       res.sendStatus(200);

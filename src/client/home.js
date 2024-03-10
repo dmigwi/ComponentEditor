@@ -1,8 +1,22 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { Container, Row, Col, Card, Image } from "react-bootstrap";
 import { BlocksList } from "./blocks-list";
 
-export class Home extends React.Component {
+function WithHooks(WrappedComponent) {
+  return function(props) {
+    const navigate = useNavigate();
+   
+   const openBlock = function(block) {
+    navigate("/" + block, { state: { "block": block } });
+   }
+    return (
+      < WrappedComponent openBlock={openBlock} {...props} />
+    );
+  };
+}
+
+class Home extends React.Component {
   constructor(props) {
     super(props);
 
@@ -10,7 +24,9 @@ export class Home extends React.Component {
   }
 
   onBlockSelected(block) {
-    this.props.history.push("/" + block);
+    console.log(">>>>> Block selected >>>> ", block);
+    const { openBlock } = this.props;
+    openBlock(block);
   }
 
   render() {
@@ -36,3 +52,6 @@ export class Home extends React.Component {
     );
   }
 }
+
+
+export default Home = WithHooks(Home);

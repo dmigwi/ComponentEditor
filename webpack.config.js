@@ -1,6 +1,6 @@
 const path = require("path");
 const webpack = require("webpack");
-const CleanWebpackPlugin = require("clean-webpack-plugin");
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const NodemonPlugin = require("nodemon-webpack-plugin");
 
 const outputDirectory = "dist";
@@ -20,13 +20,21 @@ module.exports = env => {
             path: path.join(__dirname, outputDirectory),
             filename: "bundle.js"
           },
+    resolve: {
+      extensions: ['.wasm', '.mjs', '.js', '.jsx', '.ts', '.tsx', '.json']
+    },
     module: {
       rules: [
         {
-          test: /\.js$/,
+          test: /\.m?js$/,
           exclude: /node_modules/,
           use: {
-            loader: "babel-loader"
+            loader: 'babel-loader',
+            options: {
+              presets: [
+                ['@babel/preset-env', { targets: "defaults" }]
+              ]
+            }
           }
         },
         {
@@ -35,12 +43,15 @@ module.exports = env => {
         },
         {
           test: /\.(png|woff|woff2|eot|ttf|svg)$/,
-          loader: "url-loader?limit=100000"
+          loader: 'url-loader',
+          options: {
+            limit: '100000'
+          }
         }
       ]
     },
     plugins: [
-      new CleanWebpackPlugin([outputDirectory]),
+      new CleanWebpackPlugin(),
       new NodemonPlugin({
         watch: ["./src", "./dist"],
         script: "./src/server/index.js",

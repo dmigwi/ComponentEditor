@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 import { Navbar, Nav } from "react-bootstrap";
 import { Preview } from "./preview";
 import { Publish } from "./publish";
@@ -7,40 +7,44 @@ import { Publish } from "./publish";
 export class Header extends React.Component {
   render() {
     return (
-      <Navbar collapseOnSelect bg="dark" variant="dark" fixed="top">
-        <Link to="/">
-          <Navbar.Brand>
-            <img src="https://www.circuito.io/static/images/cir_logo_white.svg" />
-            &nbsp; Editor
-          </Navbar.Brand>
-        </Link>
-
-        {this.props.activeBlock && (
-          <Nav>
-            <Nav.Link>{this.props.activeBlock}</Nav.Link>
-          </Nav>
-        )}
-
-        <Navbar.Collapse className="justify-content-end">
-          <Nav className="justify-content-end">
-            <Nav.Link
-              controlid="nav-help"
-              href="https://talk.circuito.io/c/component-editor"
-              target="_blank"
-            >
-              Help
-            </Nav.Link>
-            <Preview />
-            <Publish />
-            <Navbar.Brand
-              href="https://github.com/Circuito-io/ComponentEditor"
-              target="_blank"
-            >
-              <img src="GitHub-Mark-Light-32px.png" />
+      <div>
+        <Navbar collapseOnSelect bg="dark" variant="dark" fixed="top">
+          <Link to="/">
+            <Navbar.Brand>
+              <img src="https://www.circuito.io/static/images/cir_logo_white.svg" />
+              &nbsp; Editor
             </Navbar.Brand>
-          </Nav>
-        </Navbar.Collapse>
-      </Navbar>
+          </Link>
+
+          {this.props.activeBlock && (
+            <Nav>
+              <Nav.Link>{this.props.activeBlock}</Nav.Link>
+            </Nav>
+          )}
+
+          <Navbar.Collapse className="justify-content-end">
+            <Nav className="justify-content-end">
+              <Nav.Link
+                controlid="nav-help"
+                href="https://talk.circuito.io/c/component-editor"
+                target="_blank"
+              >
+                Help
+              </Nav.Link>
+              <Preview />
+              <Publish />
+              <Navbar.Brand
+                href="https://github.com/Circuito-io/ComponentEditor"
+                target="_blank"
+              >
+                <img src="GitHub-Mark-Light-32px.png" />
+              </Navbar.Brand>
+            </Nav>
+          </Navbar.Collapse>
+        </Navbar>
+
+        <Outlet/>
+      </div>
     );
   }
 }

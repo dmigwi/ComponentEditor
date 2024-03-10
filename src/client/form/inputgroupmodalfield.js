@@ -40,12 +40,14 @@ export class InputGroupModalField extends React.Component {
   }
 
   render() {
+    console.log(" >>> InputGroupModalField <<< ", this.props);
     return (
       <React.Fragment>
         <FormGroup>
           <DefaultLabel {...this.props.labelProps} />
           <InputGroup>
             <Typeahead
+              id={this.props.id}
               options={this.props.options}
               placeholder={this.props.placeholder}
               defaultSelected={this.props.defaultSelected}

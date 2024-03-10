@@ -11,7 +11,7 @@ import {
   delete_a_part,
   gitpod_open
 } from "../controller.js";
-import ReactTooltip from "react-tooltip";
+import { Tooltip as ReactTooltip } from "react-tooltip";
 
 import * as partSchema from "../../../circuito-schema/part.json";
 

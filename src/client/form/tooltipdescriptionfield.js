@@ -1,5 +1,5 @@
 import React from "react";
-import remark from "remark";
+import {remark} from "remark";
 //import { recommended } from "remark-preset-lint-recommended";
 import html from "remark-html";
 import { docs } from "../docs";

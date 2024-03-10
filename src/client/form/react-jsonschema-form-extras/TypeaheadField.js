@@ -187,7 +187,7 @@ export class TypeaheadField extends BaseTypeaheadField {
     return (
       <div id={$id}>
         <DefaultLabel {...this.props} />
-        <Typeahead {...typeConf} />
+        <Typeahead {...typeConf}  id="component-" />
       </div>
     );
   }
@@ -270,7 +270,7 @@ export class AsyncTypeaheadField extends BaseTypeaheadField {
     return (
       <div id={$id}>
         <DefaultLabel {...this.props} />
-        <AsyncTypeahead {...typeConf} />
+        <AsyncTypeahead {...typeConf} id="component--" />
       </div>
     );
   }

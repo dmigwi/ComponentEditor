@@ -1,26 +1,27 @@
 const jQuery = require("jquery");
 window.jQuery = jQuery;
 
-import React from "react";
-import ReactDOM from "react-dom";
-import { Route, BrowserRouter } from "react-router-dom";
+import React, { useState } from "react";
+import ReactDOM from "react-dom/client";
+import { Routes, Route, BrowserRouter, useParams } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import { Header } from "./header";
 import { Block } from "./block.js";
-import { Home } from "./home.js";
+import Home from "./home.js";
 import { cacheData } from "./controller.js";
-import ReactTooltip from "react-tooltip";
+import { Tooltip as ReactTooltip } from "react-tooltip";
 
 import "bootstrap/dist/css/bootstrap.css";
 import "./form.css";
 import "react-toastify/dist/ReactToastify.css";
 
-export default class App extends React.Component {
-  constructor(props) {
-    super(props);
 
-    this.state = {
-      activeBlock: null,
+function WithHooks(WrappedComponent) {
+  return function(props) {
+    const { block } = useParams();
+   
+    const [state, setState] = useState({
+      activeBlock: block,
       cachedData: {
         blocks: [],
         parts: [],
@@ -28,63 +29,54 @@ export default class App extends React.Component {
         blocksData: [],
         controllers: []
       }
-    };
+    });
+    return (
+      < WrappedComponent state={state} setState={setState} {...props} />
+    );
+  };
+}
+class App extends React.Component {
 
+  constructor(props) {
+    super(props);
+  
     this.refreshData = this.refreshData.bind(this);
-
     this.refreshData();
   }
 
   refreshData() {
+    const { state, setState } = this.props;
+    analytics.page();
+
     cacheData().then(cachedData => {
-      this.setState({ cachedData });
+      setState({
+        ...state,
+        'cachedData': cachedData 
+      });
     });
   }
 
+
   render() {
+    const { state } = this.props;
+    // console.log(" >>>>> PROPPPS <<<< ", this.props);
     return (
       <BrowserRouter>
         <React.Fragment>
-          <Route
-            exact
-            path="/"
-            render={props => {
-              analytics.page();
-              return <Header {...props} />;
-            }}
-          />
-          <Route
-            exact
-            path="/"
-            render={props => (
-              <Home
-                {...props}
-                cachedData={this.state.cachedData}
-                refreshData={this.refreshData}
-              />
-            )}
-          />
-
-          <Route
-            path="/:block"
-            render={props => {
-              analytics.page();
-              return (
-                <Header {...props} activeBlock={props.match.params.block} />
-              );
-            }}
-          />
-          <Route
-            path="/:block"
-            render={props => (
-              <Block
-                {...props}
-                id="block"
-                cachedData={this.state.cachedData}
-                block={props.match.params.block}
-              />
-            )}
-          />
+          <Routes>
+            <Route path="/" element={<Header {...state} />}>
+              <Route
+                index={true}
+                element={<Home cachedData={state.cachedData}  refreshData={this.refreshData} />} 
+                />
+            </Route>
+            <Route path="/:block" element={<Header {...state} />}>
+              <Route
+                index={true}
+                element={<Block id="block" cachedData={state.cachedData} activeBlock={state.activeBlock} />}
+                />
+            </Route>
+          </Routes>
           <ToastContainer hideProgressBar={true} />
           <ReactTooltip
             html={true}
@@ -92,11 +84,18 @@ export default class App extends React.Component {
             className="form-tooltip"
             effect="solid"
             place="right"
-          />
+            />
         </React.Fragment>
       </BrowserRouter>
     );
   }
 }
 
-ReactDOM.render(<App />, document.getElementById("app"));
+export default App = WithHooks(App);
+
+const root = ReactDOM.createRoot(document.getElementById("app"));
+root.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);

@@ -1,6 +1,6 @@
 const path = require('path');
 const fs = require('fs');
-const uuidv4 = require('uuid/v4');
+const { v4: uuidv4 } = require('uuid');
 
 global.dataFolder = path.join(__dirname, '../../components');
 global.circuitoServer = process.env.CIRCUITO_SERVER || "https://www.circuito.io/";
